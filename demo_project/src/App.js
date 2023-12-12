@@ -2,8 +2,10 @@
 import React, { useState } from 'react';
 
 import Profiilikuva from './images/Profiilikuva.jpg';
-import { Button1, Button2 }  from './Button.js';
+import { Button1, Button2, Button3, Button4, Button5 }  from './Button.js';
 import Display from './Display.js';
+
+import { testerObj } from './functions.jsx';
 
 import './App.css';
 
@@ -12,10 +14,40 @@ function App() {
 	const incrementCounter5 = () => 
   {
     setCounter(counter+5);
+
+    testerObj.func1();
+    testerObj.func2();
+
+    const mystery = "answer";
+    const InverseOfPI = 1 / Math.PI;
+
+    const obj = {
+      p1: 10,
+      p2: 20,
+      f1: () => {},
+      [mystery]: 42,
+      InverseOfPI,
+      InverseOfPI2: InverseOfPI
+    };
+
+    console.log("obj.mystery: ", obj.mystery);  // undefined
+    console.log("obj.answer: ", obj.answer);    // 42
+    //console.log("obj.InverseOfPI: ", obj.InverseOfPI);
+    //console.log("obj.InverseOfPI2: ", obj.InverseOfPI2);
+
+    const circle = {
+      label: "circleX",
+      radius: 2
+  }
+    console.log("Ympyrän mitta: ", testerObj.circleArea(circle));
+    console.log("Ympyrän mitta, tarkkuus 5: ", testerObj.circleArea(circle, {precision: 5}));
+    
+
   }
 
   const incrementCounter = (incrementValue) => 
   {
+    console.log("incrementCounter. incrementValue: ", incrementValue);
     setCounter(counter + incrementValue);
   }
 
@@ -35,6 +67,16 @@ function App() {
         <Display message={counter}/>
 
         <Button2/>
+
+        <Button3/>
+
+        <Button4/>
+
+        <Button5/>
+
+      </div>
+
+      <div>
       </div>
   </div>
 
