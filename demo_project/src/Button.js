@@ -9,7 +9,6 @@ const {Component, Fragment, useState} = require('react');
 export function Button1( props ) {
     return (
 		// <React.Fragment>	=> niin yleinen, että tällä on myös lyhyempi muoto <>
-        
         <>      
             <button onClick={() => props.onClickFunc(props.increment)}>
                 +{props.increment}
@@ -25,10 +24,9 @@ export function Button2( props ) {
 	return (
         <>      
         <button onClick={ handleClick } >   
-            Oma handleri: {counter} 
+            Lähtö: 42. Lisää 1, omalla funkkarilla: {counter} 
         </button>
        </>
-
 	);
 } 
 
@@ -46,9 +44,7 @@ export function Button3( props ) {
         <>      
         <button onClick={ handleClick }> Funktiokutsuja  </button>
        </>
-
 	);
-
 } 
 
 export function Button4( props ) {
@@ -80,4 +76,5 @@ export function Button5( props ) {
        </>
 	);
 } 
+
 //export default Button;

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Profiilikuva from './images/Profiilikuva.jpg';
 import { Button1, Button2, Button3, Button4, Button5 }  from './Button.js';
 import Display from './Display.js';
-
+import { HelpApp } from "./ClassComponent.jsx";
 import { testerObj } from './functions.jsx';
 
 import './App.css';
@@ -41,8 +41,6 @@ function App() {
   }
     console.log("Ympyrän mitta: ", testerObj.circleArea(circle));
     console.log("Ympyrän mitta, tarkkuus 5: ", testerObj.circleArea(circle, {precision: 5}));
-    
-
   }
 
   const incrementCounter = (incrementValue) => 
@@ -61,17 +59,28 @@ function App() {
       </header>
 
       <div>
+        <HelpApp title="The Github Cards App"> </HelpApp>
+      </div>
+
+      <br></br>
+      <br></br>
+      ---------------- Harjoitteita -------------------
+      <div>
         { /* = {} = numero, "" = string */}
         <Button1	onClickFunc={incrementCounter5} increment={5} />	  
         <Button1	onClickFunc={incrementCounter} increment={100} />
         <Display message={counter}/>
 
         <Button2/>
+        <br></br>
+        <br></br>
 
         <Button3/>
-
+        <br></br>
         <Button4/>
 
+        <br></br>
+        <br></br>
         <Button5/>
 
       </div>
