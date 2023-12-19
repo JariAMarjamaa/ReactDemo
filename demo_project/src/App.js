@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Profiilikuva from './images/Profiilikuva.jpg';
 import { Button1, Button2, Button3, Button4, Button5 }  from './Button.js';
 import Display from './Display.js';
-import { HelpApp } from "./ClassComponent.jsx";
+import { HelpApp } from "./CardExampleComponent.jsx";
 import { testerObj } from './functions.jsx';
 
 import './App.css';

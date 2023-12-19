@@ -1,14 +1,38 @@
 import React /*, { useState }*/ from 'react';
 //import kuva from './images/logo.svg';
 import { mockTestData } from "./mockData/data";
+import axios from "axios";  // npm install axiosnp
 
 import './App.css';
 
 class Form extends React.Component {
+    //userNameInput = React.createRef();
+
+    state = { userName: ""};    //initti arvo
+
+    handleSubmit = async (event) => {       // async. koska await get-requestille
+        event.preventDefault(); // estä default toiminto, että lisäys triggeröi äksönin aina
+    //    console.log("Input Ref: ", this.userNameInput.current.value);   // input elementi sisältö, kun add-klikattu
+        console.log("Input value: ", this.state.userName); 
+        const resp = await axios.get(`https://api.github.com/users/${this.state.userName}`);  // injectoidaan parametri
+        console.log("Resp.data: ", resp.data); 
+        
+        this.props.onSubmit(resp.data);
+        this.setState({ userName: '' });
+    }
+
     render() {
         return (
-            <form action="">
-                <input type="text" placeholder="GitHub username"/>
+            <form onSubmit={this.handleSubmit}>
+                <input
+                    type="text" 
+                    placeholder="GitHub username" 
+                    
+                    value={this.state.userName}     // tämä luo suoraan kontrollin elementtiin
+                    onChange={event => this.setState({userName: event.target.value})}
+
+      //              ref={this.userNameInput} 
+                    required/>
                 <button>Add card</button>
             </form>
         );
@@ -34,7 +58,8 @@ const CardList = (props) => {
                 map loopin sisään kaikki
                 mockTestData.map(profile => <Card {...profile}></Card> ) */}
 
-            {props.profiles.map(profile => <Card {...profile}></Card> ) }
+            {/* ilman key propsia tulee warning, ettei voida yksilöidä elementtejä*/}
+            {props.profiles.map(profile => <Card key={profile.id} {...profile}></Card> ) }
 
             {/*=> [ <Card/>, <Card/>, <Card/>] */}
             {/*=> [ React.createElement(), React.createElement(), React.createElement()] */}
@@ -77,11 +102,18 @@ export class HelpApp extends React.Component {
     }
     // this
 
+    addNewProfile = (profileData) => {
+        console.log("HelpApp. rofileData: ", profileData);
+        this.setState(prevState => (
+            { profiles: [...prevState.profiles, profileData]}
+        ));
+    }
+
     render () {
         return(
             <div>
                 <div className="header"> {this.props.title} </div>
-                <Form />
+                <Form onSubmit={this.addNewProfile} />  {/* onSubmit props on function kutsu*/}
                 {/* Halutaan, että CardList komponetti luodaan/kutsutaan, 
                     vain, kun uusi kortti on luotu, ei joka kerta*/}
                 <CardList profiles= {this.state.profiles}/>
