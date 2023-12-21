@@ -13,10 +13,10 @@ class Form extends React.Component {
     handleSubmit = async (event) => {       // async. koska await get-requestille
         event.preventDefault(); // estä default toiminto, että lisäys triggeröi äksönin aina
     //    console.log("Input Ref: ", this.userNameInput.current.value);   // input elementi sisältö, kun add-klikattu
-        console.log("Input value: ", this.state.userName); 
-        const resp = await axios.get(`https://api.github.com/users/${this.state.userName}`);  // injectoidaan parametri
-        console.log("Resp.data: ", resp.data); 
-        
+        console.log("Hae data githubista ja lisää Kortti nimelle: ", this.state.userName); 
+        var /*const*/ resp = await axios.get(`https://api.github.com/users/${this.state.userName}`);  // injectoidaan parametri
+        //console.log("Resp.data: ", resp.data); 
+        resp.data.name = this.state.userName;
         this.props.onSubmit(resp.data);
         this.setState({ userName: '' });
     }
@@ -74,6 +74,7 @@ class Card extends React.Component {
         
        // const profile = mockTestData[0]; => this.props
        const profile = this.props;
+       //console.log("Card. profile: ", profile);
 
         return ( 
             // css-style sheetin sijaan, voidaan käyttää myös inline tyyli-propsia,
@@ -103,7 +104,7 @@ export class HelpApp extends React.Component {
     // this
 
     addNewProfile = (profileData) => {
-        console.log("HelpApp. rofileData: ", profileData);
+        console.log("HelpApp. profileData: ", profileData);
         this.setState(prevState => (
             { profiles: [...prevState.profiles, profileData]}
         ));

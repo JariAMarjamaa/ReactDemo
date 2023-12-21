@@ -7,6 +7,8 @@ import Display from './Display.js';
 import { HelpApp } from "./CardExampleComponent.jsx";
 import { testerObj } from './functions.jsx';
 
+import { StarMatch } from "./StarGame/GameApp.jsx";
+
 import './App.css';
 
 function App() {
@@ -58,12 +60,20 @@ function App() {
         </p>
       </header>
 
+      ---------------- Peli -------------------
+
+      <div>
+        <StarMatch > </StarMatch>
+      </div>
+      
+      ---------------- Kortti -------------------
       <div>
         <HelpApp title="The Github Cards App"> </HelpApp>
       </div>
 
       <br></br>
       <br></br>
+
       ---------------- Harjoitteita -------------------
       <div>
         { /* = {} = numero, "" = string */}
