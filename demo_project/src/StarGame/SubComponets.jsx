@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { utils } from "../StarGame/Functions";
+
+import './GameApp.css';
 
 // Color Theme
 const colors = {
@@ -27,7 +29,6 @@ export const PlayNumber = props => {
 }
 
 export const StarsDisplay = props => {
-
     return (
         <>
         { utils.range(1, props.howManyStars).map(starId =>
@@ -37,3 +38,13 @@ export const StarsDisplay = props => {
         </>
     );
 }
+
+export const PlayAgain = props => {
+    return (
+        <>
+        <div className="game-done">
+	        <button onClick={props.onClick}>Play Again</button>
+	    </div>
+        </>
+    )
+};

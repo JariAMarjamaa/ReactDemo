@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { utils, numberStatus } from "./Functions";
-import { PlayNumber, StarsDisplay } from './SubComponets';
+import { PlayNumber, StarsDisplay, PlayAgain } from './SubComponets';
 
 import './GameApp.css';
 
@@ -25,7 +25,14 @@ export const StarMatch = () => {
 
     // väärä määrä lasketaan aina, joten sitä ei tarvi erikseen laskea millään set-funtiolla
     const candidatesAreWrong = utils.sum(candidateNums) > stars;
+    const gameIsDone = availableNums.length === 0;
   
+    const resetGame = () => {
+      setStars(utils.random(1, 9));
+      setAvailableNums(utils.range(1, 9));
+      setCanditateNums([]);
+    };
+
     const onNumberClick = (number, currentStatus) => {
       console.log("Num: ", number, " status: ", currentStatus);
       if (currentStatus === 'used') {
@@ -74,7 +81,13 @@ export const StarMatch = () => {
               )
             */}
 
-            <StarsDisplay howManyStars={stars} ></StarsDisplay>
+             {/* available.length === 0 ... mutta tämä ei ole hyvä tapa */}
+            {gameIsDone ? (                          
+          	  <PlayAgain onClick={resetGame} />
+            ) : (
+          	  <StarsDisplay howManyStars={stars} />
+            )}
+
           </div>
           <div className="right">
             
