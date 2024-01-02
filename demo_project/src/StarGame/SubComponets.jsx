@@ -40,9 +40,17 @@ export const StarsDisplay = props => {
 }
 
 export const PlayAgain = props => {
+    
+    console.log("PlayAgain. props.gameStatus: ", props.gameStatus);
+
     return (
         <>
         <div className="game-done">
+  	        <div 
+                className="message"
+                style={{ color: props.gameStatus === 'lost' ? 'red' : 'green'}}>
+  	            {props.gameStatus === 'lost' ? 'Game Over' : 'Nice'}
+  	        </div>
 	        <button onClick={props.onClick}>Play Again</button>
 	    </div>
         </>

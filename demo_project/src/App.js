@@ -7,7 +7,7 @@ import Display from './Display.js';
 import { HelpApp } from "./CardExampleComponent.jsx";
 import { testerObj } from './functions.jsx';
 
-import { StarMatch } from "./StarGame/GameApp.jsx";
+import { /*StarMatch,*/ Game  } from "./StarGame/GameApp.jsx";
 
 import './App.css';
 
@@ -49,6 +49,11 @@ function App() {
   {
     console.log("incrementCounter. incrementValue: ", incrementValue);
     setCounter(counter + incrementValue);
+  }
+
+  const StarMatch = () => {
+    const [gameId, setGameId] = useState(1);  // koska gameid vaihtuu startilla, niin komponentti unmountataan ensin ja kaikki muuttujat resetoidaan
+    return <Game key={gameId} startNewGame={() => setGameId(gameId + 1)}/>;
   }
 
   return (

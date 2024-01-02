@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { utils, numberStatus } from "./Functions";
 import { PlayNumber, StarsDisplay, PlayAgain } from './SubComponets';
 
 import './GameApp.css';
 
-export const StarMatch = () => {
-    
+//export const StarMatch = () => {
+export const Game = (props) => {    // play again buttoni toimimaan, unmounttaamalla komponentti = resetoi kaikki muuttujat
     //const stars = utils.random(1,9); //6;
     //const [stars,setStars] = useState( utils.random(1,9) ); 
     // Nyt tässä käytetään natiivia Javascript functiota Number => ei toimi, jos oma komponentti samanniminen!
@@ -27,15 +27,34 @@ export const StarMatch = () => {
     const candidatesAreWrong = utils.sum(candidateNums) > stars;
     const gameIsDone = availableNums.length === 0;
   
+    const [secondsLeft, setSecondsLeft] = useState(10);
+    // StartMatch komponentti renderöidään minimissään joka sekunti
+    // setInterval, setTimeout
+
+    useEffect(() => {
+      if (secondsLeft > 0 && availableNums.length > 0) {
+        const timerId = setTimeout(() => {
+          setSecondsLeft(secondsLeft - 1);
+        }, 1000);
+        return () => clearTimeout(timerId);
+      }
+    }); 
+
+    const gameStatus = availableNums.length === 0 ? 'won' : secondsLeft === 0 ? 'lost' : 'active'; 
+   
     const resetGame = () => {
+      console.log("resetGame");
+      
       setStars(utils.random(1, 9));
       setAvailableNums(utils.range(1, 9));
       setCanditateNums([]);
     };
 
     const onNumberClick = (number, currentStatus) => {
-      console.log("Num: ", number, " status: ", currentStatus);
-      if (currentStatus === 'used') {
+      console.log("Num: ", number, " status: ", currentStatus, " game status: ", gameStatus);
+
+
+      if (gameStatus !== 'active' || currentStatus === 'used') {
         return;
       }
   
@@ -81,9 +100,9 @@ export const StarMatch = () => {
               )
             */}
 
-             {/* available.length === 0 ... mutta tämä ei ole hyvä tapa */}
-            {gameIsDone ? (                          
-          	  <PlayAgain onClick={resetGame} />
+             {/* available.length === 0 ... mutta tämä ei ole hyvä tapa => gameIsDone*/}
+            {gameStatus !== 'active' ? (                          
+          	  <PlayAgain onClick={props.startNewGame/* <= funktio unmounttaan tämän komponentin ja resetoi muuttujat  -> resetGame*/} gameStatus={gameStatus}/>
             ) : (
           	  <StarsDisplay howManyStars={stars} />
             )}
@@ -126,7 +145,7 @@ export const StarMatch = () => {
 
           </div>
         </div>
-        <div className="timer">Time Remaining: 10</div>
+        <div className="timer">Time Remaining: {secondsLeft}</div>
       </div>
     );
   };
