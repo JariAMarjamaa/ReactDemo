@@ -27,3 +27,13 @@ export const utils = {
       return sums[utils.random(0, sums.length - 1)];
     },
   };
+
+export const numberStatus = (number,availableNums,candidateNums,candidatesAreWrong) => {
+    if (!availableNums.includes(number)) {
+      return 'used';
+    }
+    if (candidateNums.includes(number)) {
+      return candidatesAreWrong ? 'wrong': 'candidate';
+    }
+    return 'available';
+  };
